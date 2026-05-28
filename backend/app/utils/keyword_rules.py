@@ -1,8 +1,10 @@
 CRITICAL_KEYWORDS = [
     "unconscious",
-    "heavy bleeding",
     "severe bleeding",
     "not breathing",
+    "cardiac arrest",
+    "no pulse",
+    "crushed",
     "fire",
     "burn",
     "critical",
@@ -16,6 +18,7 @@ SERIOUS_KEYWORDS = [
     "broken arm",
     "broken leg",
     "head injury",
+    "heavy bleeding",
     "collision"
 ]
 

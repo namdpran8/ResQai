@@ -250,6 +250,11 @@ def _sse_event(event: str, data: dict[str, Any]) -> str:
     return f"event: {event}\ndata: {json.dumps(data, ensure_ascii=False)}\n\n"
 
 
+def _matches_keyword(text: str, keyword: str) -> bool:
+    pattern = re.escape(keyword)
+    return re.search(rf"(?<!\w){pattern}(?!\w)", text) is not None
+
+
 def classify_severity(text: str) -> SeverityResult:
     normalised = (text or "").lower()
 
@@ -258,7 +263,7 @@ def classify_severity(text: str) -> SeverityResult:
         ("serious", SERIOUS_KEYWORDS),
         ("minor", MINOR_KEYWORDS),
     ):
-        matched = [keyword for keyword in keywords if keyword in normalised]
+        matched = [keyword for keyword in keywords if _matches_keyword(normalised, keyword)]
         if matched:
             confidence = min(1.0, len(matched) * 0.3)
             return SeverityResult(level=level, matched_keywords=matched, confidence=confidence)

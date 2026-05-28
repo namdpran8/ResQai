@@ -3,3 +3,8 @@ uvicorn
 google-genai
 python-dotenv
 pydantic
+SQLAlchemy
+alembic
+phonenumbers
+twilio
+psycopg2-binary
