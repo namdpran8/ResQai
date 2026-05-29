@@ -569,11 +569,11 @@ railway run python -m app.db.seed
 
 | Member | Role |
 |---|---|
-| Person 1 | UX / Design Lead |
-| Person 2 | Frontend Developer |
-| Person 3 | Backend Lead |
-| Person 4 | Backend Developer |
-| Person 5 | AI / ML Engineer |
+| Nikhil Khushwaha | UX / Design Lead |
+| Om Aide | Frontend Developer |
+| Pranshu Namdeo | Backend Lead |
+| Prasenjit Shinde | Backend Developer |
+| Priyam Singh | AI / ML Engineer |
 
 ---
 
@@ -590,13 +590,13 @@ This project is licensed under the MIT License — see [LICENSE](LICENSE) for de
 - **National Health Authority (NHA)** for the hospital registry dataset
 - **Google Maps Platform** — Places, Distance Matrix, Directions APIs
 - **Twilio** — SMS and voice call infrastructure
-- **Anthropic** — Claude API for the AI triage engine
+
 
 ---
 
 <div align="center">
 
-**Built with ❤️ and urgency at the National Road Safety Hackathon 2026**
+**Built with ❤️ **
 
 *Every second saved is a life closer to being saved.*
 
