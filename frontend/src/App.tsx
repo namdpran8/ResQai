@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import StatusBar from "./components/StatusBar";
 import BottomNav from "./components/BottomNav";
 import ParticleBackground from "./components/ParticleBackground";
 import OnboardingScreen from "./screens/OnboardingScreen";
@@ -47,6 +46,7 @@ export default function App() {
       "offline",
       "profile",
     ];
+  
 
     if (validScreens.includes(screen as Screen)) {
       setPreviousScreen(activeScreen);
@@ -106,7 +106,7 @@ export default function App() {
           {!onboarded && (
             <motion.div
               key="onboarding"
-              className="absolute inset-0 z-50"
+              className="absolute inset-0 z-[300]"
               initial={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.4 }}
@@ -120,11 +120,9 @@ export default function App() {
 
         {onboarded && (
           <>
-            <StatusBar isDark={isDark} />
-
             <div
               className="relative overflow-hidden"
-              style={{ height: "calc(100% - 44px - 68px)" }}
+              style={{ height: "calc(100% - 68px)" }}
             >
               <AnimatePresence custom={direction} mode="wait">
                 <motion.div

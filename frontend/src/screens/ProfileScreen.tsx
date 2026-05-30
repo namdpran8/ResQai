@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import {
   ArrowLeft,
+  User,
   Camera,
   Pencil,
   Save,
+  Droplets,
+  HeartPulse,
 } from "lucide-react";
 
 interface ProfileScreenProps {
@@ -254,7 +257,7 @@ export default function ProfileScreen({
               onChange={(e) =>
                 updateField("address", e.target.value)
               }
-              className={`${inputClass} min-h-70px resize-none`}
+              className={`${inputClass} min-h-[70px] resize-none`}
             />
           </div>
         </div>
@@ -292,7 +295,7 @@ export default function ProfileScreen({
               onChange={(e) =>
                 updateField("allergies", e.target.value)
               }
-              className={`${inputClass} min-h-70px resize-none`}
+              className={`${inputClass} min-h-[70px] resize-none`}
             />
 
             <textarea
@@ -302,7 +305,7 @@ export default function ProfileScreen({
               onChange={(e) =>
                 updateField("conditions", e.target.value)
               }
-              className={`${inputClass} min-h-70px resize-none`}
+              className={`${inputClass} min-h-[70px] resize-none`}
             />
 
             <textarea
@@ -312,7 +315,7 @@ export default function ProfileScreen({
               onChange={(e) =>
                 updateField("medications", e.target.value)
               }
-              className={`${inputClass} min-h-70px resize-none`}
+              className={`${inputClass} min-h-[70px] resize-none`}
             />
           </div>
         </div>

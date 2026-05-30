@@ -296,7 +296,7 @@ export default function AIClassificationScreen({ isDark, onNavigate }: AIClassif
                 {[0, 45, 90, 135, 180, 225, 270, 315].map((deg, i) => (
                   <motion.div
                     key={i}
-                    className="absolute top-1/2 left-1/2 h-px bggradienttot from-violet-500/80 to-transparent"
+                    className="absolute top-1/2 left-1/2 h-px bg-gradient-to-r from-violet-500/80 to-transparent"
                     style={{
                       width: 70,
                       transformOrigin: "left center",
@@ -436,7 +436,7 @@ export default function AIClassificationScreen({ isDark, onNavigate }: AIClassif
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1 }}
                       className={`flex items-start gap-2 p-2.5 rounded-xl ${
-                        i === 0 ? `${severityConfig.bg} border ${severityConfig.border}` : `${isDark ? "bg-white/0.02" : "bg-gray-50"}`
+                        i === 0 ? `${severityConfig.bg} border ${severityConfig.border}` : `${isDark ? "bg-white/[0.02]" : "bg-gray-50"}`
                       }`}
                     >
                       <span className="text-[10px] font-black text-white/30 mt-0.5 w-4 shrink-0">{i + 1}.</span>

@@ -64,7 +64,7 @@ export default function VoiceModal({ isOpen, onClose, isDark, onNavigate }: Voic
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 z-100 flex items-end"
+          className="absolute inset-0 z-[100] flex items-end"
           style={{ background: "rgba(0,0,0,0.75)", backdropFilter: "blur(10px)" }}
         >
           <motion.div

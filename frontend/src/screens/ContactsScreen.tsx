@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, Plus, Trash2, AlertTriangle } from "lucide-react";
+import { ArrowLeft, Plus, Phone, Trash2, AlertTriangle } from "lucide-react";
 
 interface ContactsScreenProps {
   isDark: boolean;

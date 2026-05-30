@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   CheckCircle, Circle, Phone,
-  ArrowLeft, MapPin
+  ArrowLeft, MapPin, Shield
 } from "lucide-react";
 import { ambulanceUpdates } from "../data/mockData";
 
@@ -13,28 +13,32 @@ interface TrackingScreenProps {
 
 export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenProps) {
   const [ambulancePos, setAmbulancePos] = useState({ x: 15, y: 65 });
-  const [etaSeconds, setEtaSeconds] = useState(243);
+  const [etaSeconds, setEtaSeconds] = useState(240);
   const [routeProgress, setRouteProgress] = useState(32);
+  const [distance, setDistance] = useState(1.8);
 
   const cardBg = isDark ? "bg-white/[0.04] border-white/[0.07]" : "bg-white/80 border-gray-200";
   const textPrimary = isDark ? "text-white" : "text-gray-900";
   const textSecondary = isDark ? "text-white/50" : "text-gray-500";
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setEtaSeconds((prev) => Math.max(0, prev - 1));
-      setRouteProgress((prev) => Math.min(100, prev + 0.3));
-      setAmbulancePos((prev) => ({
-        x: Math.min(82, prev.x + 0.3),
-        y: Math.max(38, prev.y - 0.15),
-      }));
-    }, 1000);
+  const interval = setInterval(() => {
+  setEtaSeconds((prev) => Math.max(0, prev - 1));
+
+  setDistance((prev) => Math.max(0, prev - 0.01));
+
+  setRouteProgress((prev) => Math.min(100, prev + 0.3));
+
+  setAmbulancePos((prev) => ({
+    x: Math.min(85, prev.x + 0.15),
+    y: Math.max(38, prev.y - 0.08),
+  }));
+}, 1000);
     return () => clearInterval(interval);
   }, []);
-
   const formatETA = (s: number) => {
     const m = Math.floor(s / 60);
-    const sec = s % 60;
+    const sec =Math.floor(s % 60);
     return `${m}:${sec.toString().padStart(2, "0")}`;
   };
 
@@ -59,12 +63,17 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
             <ArrowLeft size={14} className={textPrimary} />
           </motion.button>
           <div>
-            <h1 className={`text-base font-bold ${textPrimary} font-orbitron`}>Live Tracking</h1>
-            <p className={`text-[10px] ${textSecondary}`}>Ambulance unit AMB-047</p>
+            <h1 className={`text-xl font-bold ${textPrimary}`}>
+  Ambulance On The Way
+</h1>
+
+<p className={`text-[12px] ${textSecondary}`}>
+  Help is on the way. Stay calm.
+</p>
           </div>
-          <div className="ml-auto flex items-center gap-1 px-2 py-1 rounded-full bg-red-500/10 border border-red-500/20">
-            <div className="w-1.5 h-1.5 rounded-full bg-red-400 animate-pulse" />
-            <span className="text-red-400 text-[9px] font-semibold">LIVE</span>
+          <div className="ml-auto flex items-center gap-1 px-2 py-1 rounded-full bg-blue-500/10 border border-blue-500/20">
+            <div className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="text-blue-400 text-[9px] font-semibold">LIVE</span>
           </div>
         </div>
 
@@ -86,25 +95,30 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
 
         {/* Map Section */}
         <div className="px-5 mb-4">
-          <div
-            className="w-full h-56 rounded-3xl relative overflow-hidden border border-white/0.08"
-            style={{
-              background: isDark
-                ? "linear-gradient(135deg, #0a0f1e 0%, #0d1224 50%, #0a1218 100%)"
-                : "linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%)",
-            }}
-          >
-            {/* Grid */}
-            <div
-              className="absolute inset-0 opacity-20"
-              style={{
-                backgroundImage: `
-                  linear-gradient(rgba(59,130,246,0.15) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(59,130,246,0.15) 1px, transparent 1px)
-                `,
-                backgroundSize: "28px 28px",
-              }}
-            />
+          
+      <div
+  className="w-full h-500px] rounded-3xl relative overflow-hidden border border-white/0.08 bg-[#0b1220]"
+>
+           
+{/* ETA + Distance Card */}
+<div className="absolute top-4 left-1/2 -translate-x-1/2 z-20">
+  <div className="bg-black/70 backdrop-blur-xl rounded-2xl px-6 py-3 flex gap-8">
+    <div>
+      <p className="text-gray-400 text-xs">ETA</p>
+      <p className="text-red-400 text-2xl font-bold">
+        {formatETA(etaSeconds)}
+      </p>
+    </div>
+
+    <div>
+      <p className="text-gray-400 text-xs">Distance</p>
+      <p className="text-white text-2xl font-bold">
+  {distance.toFixed(2)} km
+</p>
+    </div>
+  </div>
+</div>
+           
 
             {/* Road network */}
             <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -120,12 +134,15 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
 
               {/* Ambulance route */}
               <motion.path
-                d={`M ${ambulancePos.x} ${ambulancePos.y} Q 50 50 85 38`}
+           d={`M ${ambulancePos.x} ${ambulancePos.y}
+  
+   L  85 38`}
                 fill="none"
-                stroke="#ef4444"
+                stroke="#4ade80"
                 strokeWidth="1.5"
-                strokeDasharray="4 3"
-                strokeOpacity="0.7"
+                strokeDasharray="12 8"
+                strokeLinecap="round"
+                strokeOpacity="0.8"
                 animate={{ strokeDashoffset: [0, -7] }}
                 transition={{ duration: 0.5, repeat: Infinity, ease: "linear" }}
               />
@@ -173,19 +190,20 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
                 transition={{ duration: 1.5, repeat: Infinity }}
               >
                 <div
-                  className="w-9 h-9 rounded-full flex items-center justify-center text-base font-bold border-2 border-red-400"
-                  style={{
-                    background: "linear-gradient(135deg, #ef4444, #dc2626)",
-                    boxShadow: "0 0 20px rgba(239,68,68,0.8), 0 0 40px rgba(239,68,68,0.4)",
-                    transform: "translate(-50%, -50%)",
-                  }}
-                >
-                  🚑
-                </div>
+  className="w-12 h-12 rounded-2xl flex items-center justify-center text-xl border-2 border-red-400"
+  style={{
+    background: "linear-gradient(135deg, #ef4444, #dc2626)",
+boxShadow:
+"0 0 30px rgba(239,68,68,1), 0 0 60px rgba(239,68,68,0.7)",
+    transform: "translate(-50%, -50%)",
+  }}
+> 
+  🚑
+</div>
                 <motion.div
                   className="absolute inset-0 rounded-full border border-red-500/50"
                   style={{ transform: "translate(-50%, -50%)" }}
-                  animate={{ scale: [1, 2.5], opacity: [0.6, 0] }}
+                  animate={{ scale: [1, 1.15, 1], opacity: [0.6, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 />
               </motion.div>
@@ -243,6 +261,9 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
               </div>
             </div>
 
+            
+            
+            
             {/* Compass */}
             <div className="absolute top-3 right-3 w-7 h-7 rounded-full bg-black/40 border border-white/10 flex items-center justify-center">
               <span className="text-white/60 text-[9px] font-bold">N↑</span>
@@ -262,18 +283,18 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
 
             <div className="flex items-center justify-between">
               <div>
-                <p className={`text-[10px] font-semibold ${textSecondary} uppercase tracking-wider mb-0.5`}>Estimated Arrival</p>
+                <p className={`text-[10px] font-semibold ${textSecondary} uppercase tracking-wider mb-0.5`}>Estimated Arriving</p>
                 <div className="flex items-baseline gap-1">
                   <span className={`text-4xl font-black font-orbitron ${etaSeconds < 60 ? "text-red-400" : textPrimary}`}>
                     {formatETA(etaSeconds)}
                   </span>
                   <span className={`text-xs ${textSecondary}`}>min</span>
                 </div>
-                <p className={`text-[10px] ${textSecondary} mt-0.5`}>Unit AMB-047 · 3 paramedics</p>
+                <p className={`text-[10px] ${textSecondary} mt-0.5`}>Unit POL-911 · 4 OFFICERS</p>
               </div>
               <div className="flex flex-col items-center gap-2">
-                <div className="w-14 h-14 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center text-2xl">
-                  🚑
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-2xl">
+                <span className="text-3xl">🚑</span>
                 </div>
                 <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-green-500/10 border border-green-500/20">
                   <div className="w-1 h-1 rounded-full bg-green-400 animate-pulse" />
@@ -409,6 +430,6 @@ export default function TrackingScreen({ isDark, onNavigate }: TrackingScreenPro
           </motion.button>
         </div>
       </div>
-    </div>
+      </div>
   );
 }

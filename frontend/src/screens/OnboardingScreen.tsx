@@ -112,7 +112,7 @@ export default function OnboardingScreen({ onComplete }: OnboardingProps) {
                 <motion.div
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-                  className={`w-28 h-28 rounded-3xl bggradienttot ${slide.gradient} border border-white/10 flex items-center justify-center relative`}
+                  className={`w-28 h-28 rounded-3xl bg-gradient-to-br ${slide.gradient} border border-white/10 flex items-center justify-center relative`}
                   style={{
                     boxShadow: `0 0 60px ${slide.color}30, 0 0 120px ${slide.color}10`,
                   }}

@@ -61,7 +61,7 @@ export default function SOSModal({ isOpen, onClose, onTrack, isDark }: SOSModalP
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="absolute inset-0 z-200 flex items-center justify-center px-5"
+          className="absolute inset-0 z-[200] flex items-center justify-center px-5"
           style={{ background: "rgba(0,0,0,0.85)", backdropFilter: "blur(15px)" }}
         >
           <motion.div
@@ -189,16 +189,16 @@ export default function SOSModal({ isOpen, onClose, onTrack, isDark }: SOSModalP
                   className="p-3 rounded-2xl bg-blue-500/10 border border-blue-500/20 mb-4 flex items-center justify-between"
                 >
                   <div>
-                    <p className={`text-[10px] ${textSecondary}`}>Ambulance ETA</p>
+                    <p className={`text-[10px] ${textSecondary}`}>police ETA</p>
                     <p className={`text-xl font-black font-orbitron text-blue-400`}>4:00 min</p>
                   </div>
                   <div className="text-center">
-                    <p className={`text-[10px] ${textSecondary}`}>Unit</p>
-                    <p className={`text-sm font-bold ${textPrimary}`}>AMB-047</p>
+                    <p className={`text-[10px] ${textSecondary}`}>patrol Unit</p>
+                    <p className={`text-sm font-bold ${textPrimary}`}>pol-911</p>
                   </div>
                   <div className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-green-500/15 border border-green-500/25">
                     <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-                    <span className="text-green-400 text-[10px] font-bold">EN ROUTE</span>
+                    <span className="text-green-400 text-[10px] font-bold">PATROL ACTIVE</span>
                   </div>
                 </motion.div>
               )}

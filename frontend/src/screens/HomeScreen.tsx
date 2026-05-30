@@ -125,7 +125,7 @@ export default function HomeScreen({
             >
               <div className="flex items-center justify-between p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 relative overflow-hidden">
                 <motion.div
-                  className="absolute inset-0 bggradienttot from-transparent via-amber-500/5 to-transparent"
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-amber-500/5 to-transparent"
                   animate={{ x: ["-100%", "200%"] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
                 />
@@ -253,15 +253,25 @@ export default function HomeScreen({
                   key={action.id}
                   whileTap={{ scale: 0.91 }}
                   whileHover={{ scale: 1.03 }}
-                  onClick={() => {const routeMap: Record<string, string> = {ambulance: "tracking",police: "tracking",hospital: "tracking",contacts: "contacts",};onNavigate(routeMap[action.id] || "home");}}
+                 onClick={() =>
+  onNavigate(
+    action.id === "ambulance"
+      ? "tracking"
+      : action.id === "contacts"
+      ? "contacts"
+      : action.id === "hospital"
+      ? "tracking"
+      : "tracking"
+  )
+}
                   className="flex flex-col items-center gap-1.5"
                 >
                   <div
-                    className={`w-full aspect-square rounded-2xl bggradienttot ${action.color} flex items-center justify-center relative overflow-hidden`}
+                    className={`w-full aspect-square rounded-2xl bg-gradient-to-br ${action.color} flex items-center justify-center relative overflow-hidden`}
                     style={{ boxShadow: `0 6px 24px ${action.glow}40, inset 0 1px 0 rgba(255,255,255,0.15)` }}
                   >
                     <Icon size={20} className="text-white" strokeWidth={1.8} />
-                    <div className="absolute inset-0 bggradienttot from-black/20 to-white/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-white/10" />
                   </div>
                   <span className={`text-[10px] font-semibold ${textPrimary}`}>{action.label}</span>
                   <span className={`text-[9px] ${textSecondary} -mt-1`}>{action.desc}</span>
@@ -309,10 +319,10 @@ export default function HomeScreen({
               }}
             >
               {/* Fake roads */}
-              <div className="absolute top-1/2 left-0 right-0 h-2px bg-white/10" />
-              <div className="absolute top-0 bottom-0 left-1/3 w-2px bg-white/10" />
-              <div className="absolute top-0 bottom-0 right-1/4 w-2px bg-white/10" />
-              <div className="absolute top-1/4 left-0 right-0 h-1px bg-white/5" />
+              <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-white/10" />
+              <div className="absolute top-0 bottom-0 left-1/3 w-[2px] bg-white/10" />
+              <div className="absolute top-0 bottom-0 right-1/4 w-[2px] bg-white/10" />
+              <div className="absolute top-1/4 left-0 right-0 h-[1px] bg-white/5" />
 
               {/* Location pin */}
               <motion.div
@@ -321,10 +331,12 @@ export default function HomeScreen({
                 animate={{ y: [0, -3, 0] }}
                 transition={{ duration: 2, repeat: Infinity }}
               >
-                <div className="w-5 h-5 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center shadow-lg"
-                  style={{ boxShadow: "0 0 12px rgba(59,130,246,0.7)" }}>
-                  <div className="w-2 h-2 rounded-full bg-white" />
-                </div>
+                <div
+  className="w-5 h-5 rounded-full bg-blue-500 border-2 border-white flex items-center justify-center"
+  style={{ boxShadow: "0 0 12px rgba(59,130,246,0.7)" }}
+>
+  <Shield className="w-3 h-3 text-white" />
+</div>
                 {/* Accuracy circle */}
                 <motion.div
                   className="absolute -inset-4 rounded-full border border-blue-500/30 bg-blue-500/5"
@@ -355,7 +367,7 @@ export default function HomeScreen({
           >
             <div className="absolute inset-0 overflow-hidden">
               <motion.div
-                className="absolute inset-y-0 w-1/3 bggradienttot from-transparent via-violet-500/8 to-transparent"
+                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-violet-500/8 to-transparent"
                 animate={{ x: ["-100%", "400%"] }}
                 transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
               />
@@ -425,25 +437,7 @@ export default function HomeScreen({
           </div>
         </div>
 
-        {/* Emergency ID */}
-        <div className="px-5 mb-2">
-          <div className={`flex items-center justify-between p-3 rounded-2xl border ${cardBg}`}>
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-                <Shield size={12} className="text-red-400" />
-              </div>
-              <div>
-                <p className={`text-[10px] ${textSecondary}`}>Emergency ID</p>
-                <p className={`text-xs font-mono font-bold ${textPrimary}`}>{userProfile.emergencyId}</p>
-              </div>
-            </div>
-            <div className="text-right">
-              <p className={`text-[10px] ${textSecondary}`}>Blood Group</p>
-              <p className="text-sm font-black text-red-400 font-orbitron">{userProfile.bloodGroup}</p>
-            </div>
-          </div>
+         </div>
         </div>
-      </div>
-    </div>
   );
 }

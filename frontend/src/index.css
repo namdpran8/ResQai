@@ -1,42 +1,46 @@
 @import "tailwindcss";
 
-:root {
+@theme {
   --font-orbitron: 'Orbitron', monospace;
   --font-inter: 'Inter', sans-serif;
 }
 
-/* Reset */
 * {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
-
-  /* ✅ Hide scrollbars */
-  scrollbar-width: none;          /* Firefox */
-  -ms-overflow-style: none;       /* IE & Edge */
 }
 
-*::-webkit-scrollbar {
-  display: none;                  /* Chrome, Safari */
-}
-
-/* Body */
 body {
   font-family: 'Inter', sans-serif;
   background: #050810;
-  overflow-x: hidden;             /* ✅ No horizontal scroll */
+  overflow-x: hidden;
   height: 100vh;
-  width: 100vw;
+  width: 100%;
 }
 
 #root {
-  height: 100vh;
-  width: 100vw;
-  overflow: hidden;
-}
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;}
+ 
 
-/* Fonts */
 .font-orbitron {
   font-family: 'Orbitron', monospace;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(239, 68, 68, 0.4);
+  border-radius: 2px;
 }
 
 /* Glass morphism */
@@ -61,13 +65,19 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* SOS glow */
+/* SOS glow effect */
 .sos-glow {
   box-shadow:
     0 0 30px rgba(239, 68, 68, 0.6),
     0 0 60px rgba(239, 68, 68, 0.4),
     0 0 100px rgba(239, 68, 68, 0.2),
     inset 0 0 30px rgba(239, 68, 68, 0.1);
+}
+
+.sos-glow-light {
+  box-shadow:
+    0 0 15px rgba(239, 68, 68, 0.3),
+    0 0 30px rgba(239, 68, 68, 0.15);
 }
 
 /* Gradient text */
@@ -78,13 +88,90 @@ body {
   background-clip: text;
 }
 
-/* Smooth scroll */
-.scroll-smooth {
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+.gradient-text-white {
+  background: linear-gradient(135deg, #ffffff, #a0aec0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-/* Mobile container */
+/* Animated gradient bg */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animated-gradient {
+  background: linear-gradient(-45deg, #050810, #0d0f1a, #110810, #0a0d16);
+  background-size: 400% 400%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Pulse ring animation */
+@keyframes pulseRing {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+.pulse-ring {
+  animation: pulseRing 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-anim {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Scan line effect */
+@keyframes scanLine {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+/* Particle glow */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Map mock styles */
+.map-grid {
+  background-image: 
+    linear-gradient(rgba(239, 68, 68, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(239, 68, 68, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Emergency pulse */
+@keyframes emergencyPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.emergency-pulse {
+  animation: emergencyPulse 1s ease-in-out infinite;
+}
+
+/* Neon border */
+.neon-border-red {
+  box-shadow: 0 0 5px rgba(239, 68, 68, 0.5), 0 0 10px rgba(239, 68, 68, 0.3), 0 0 20px rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.6);
+}
+
+.neon-border-green {
+  box-shadow: 0 0 5px rgba(34, 197, 94, 0.5), 0 0 10px rgba(34, 197, 94, 0.3);
+  border-color: rgba(34, 197, 94, 0.6);
+}
+
+/* Mobile viewport */
 .mobile-container {
   max-width: 430px;
   margin: 0 auto;
@@ -92,8 +179,60 @@ body {
   position: relative;
   overflow: hidden;
 }
- 
-/* Safe area */
+
+/* Safe area padding for bottom nav */
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom, 16px);
+}
+
+/* Smooth scroll */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Light mode overrides */
+.light-mode body {
+  background: #f8fafc;
+}
+
+/* Shimmer effect */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Voice wave animation */
+@keyframes voiceWave {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+.voice-bar {
+  animation: voiceWave 0.8s ease-in-out infinite;
+}
+
+/* Route dashed animation */
+@keyframes dashMove {
+  to { stroke-dashoffset: -20; }
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+#root {
+  overflow-x: hidden !important;
+}
+
+* {
+  max-width: 100%;
 }

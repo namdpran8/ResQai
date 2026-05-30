@@ -29,7 +29,7 @@ export default function OfflineScreen({ isDark, onNavigate }: OfflineScreenProps
     <div className={`absolute inset-0 ${isDark ? "bg-[#050810]" : "bg-slate-100"} overflow-hidden`}>
       {isDark && (
         <>
-          <div className="absolute top-0 left-0 right-0 h-1 bggradienttot from-transparent via-amber-500/50 to-transparent" />
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
           <div className="absolute top-20 left-1/2 -translate-x-1/2 w-64 h-64 opacity-10 pointer-events-none"
             style={{ background: "radial-gradient(circle, #f59e0b 0%, transparent 70%)", filter: "blur(50px)" }} />
         </>
@@ -72,7 +72,7 @@ export default function OfflineScreen({ isDark, onNavigate }: OfflineScreenProps
           <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/25 relative overflow-hidden">
             <div className="absolute inset-0 overflow-hidden">
               <motion.div
-                className="absolute inset-y-0 w-1/3 bggradienttot from-transparent via-amber-500/5 to-transparent"
+                className="absolute inset-y-0 w-1/3 bg-gradient-to-r from-transparent via-amber-500/5 to-transparent"
                 animate={{ x: ["-100%", "400%"] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               />
