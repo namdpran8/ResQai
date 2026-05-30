@@ -506,6 +506,21 @@ closed facility → +8  (heavy penalty)
 
 ---
 
+### Prototype testing (no LLM key required)
+
+The backend includes a prototype fallback so you can test `POST /api/triage` even without an LLM API key. If Gemini/Anthropic calls fail or no key is configured, the server returns a deterministic mock triage JSON based on keywords in the description and streams it as Server-Sent Events (SSE).
+
+Example (streaming with curl):
+
+```bash
+curl -N -X POST http://localhost:8000/api/triage \
+  -H "Content-Type: application/json" \
+  -d '{"description":"Truck overturned, driver unconscious, heavy bleeding","lat":23.2599,"lng":77.4126}'
+```
+
+You should see SSE events: `first_aid` (instant preview), `triage_chunk` (streamed chunks) and `final` (final JSON). This makes the prototype feel responsive for demos.
+
+
 ## 🌐 Deployment
 
 ### Railway (recommended for hackathon)
